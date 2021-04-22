@@ -14,11 +14,24 @@
         <module>electron-storage</module>
         <module>electron-service</module>
         <module>electron-server</module>
+        <module>electron-protocol</module>
     </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.encoding>utf-8</maven.compiler.encoding>
+        <netty.version>4.1.50.Final</netty.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>2.8.6</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
