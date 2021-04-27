@@ -6,7 +6,11 @@
 
 ## 序列化
 
-为了便于前期快速实现, 使用 JSON 格式传输, 通过 GSON 库进行解析.
+使用 protobuf 生成和解析协议, 利用 maven 插件进行编译, 需要预先提供 `protoc` 编译器.
+
+```shell
+mvn protobuf:compile
+```
 
 ## 消息体
 

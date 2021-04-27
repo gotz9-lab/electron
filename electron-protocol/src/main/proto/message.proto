@@ -1,0 +1,123 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.github.gotz9.electron.protocol.message";
+
+message ServerMessage {
+
+  enum ServerMessageType {
+    BasicUserInfo = 0;
+    UserStateInfo = 1;
+    GroupInfo = 2;
+    GroupMemberInfo = 3;
+    GroupMembers = 4;
+    ChatMessage = 5;
+    UpdateState = 6;
+    Notify = 7;
+  }
+
+  ServerMessageType type = 1;
+
+  oneof body {
+    BasicUserInfo basicUserInfo = 2;
+    UserStateInfo userStateInfo = 3;
+    GroupInfo groupInfo = 4;
+    GroupMemberInfo groupMemberInfo = 5;
+    GroupMembers groupMembers = 6;
+    ChatMessage chatMessage = 7;
+    UpdateState updateState = 8;
+    Notify notify = 9;
+  }
+
+}
+
+message Login {
+  int64 uuid = 1;
+  string token = 2;
+}
+
+message ClientMessage {
+  enum ClientMessageType {
+    Login = 0;
+  }
+
+  ClientMessageType type = 1;
+
+  oneof body {
+    Login login = 2;
+  }
+}
+
+message BasicUserInfo {
+  int64 uuid = 1;
+  string nickname = 2;
+}
+
+enum UserState {
+  ONLINE = 0;
+  OFFLINE = 1;
+}
+
+message UserStateInfo {
+  int64 uuid = 1;
+  string nickname = 2;
+  UserState state = 3;
+}
+
+message GroupInfo {
+  int64 uuid = 1;
+  string name = 2;
+  repeated BasicUserInfo users = 3;
+}
+
+enum MemberType {
+  OWNER = 0;
+  ADMIN = 1;
+  MEMBER = 2;
+}
+
+message GroupMemberInfo {
+  MemberType type = 1;
+  BasicUserInfo info = 2;
+}
+
+message GroupMembers {
+  repeated BasicUserInfo members = 2;
+}
+
+message ChatMessage {
+
+  enum MessageType {
+    PERSON = 0;
+    GROUP = 1;
+  }
+
+  message MessageContent {
+    string content = 1;
+    uint64 time = 2;
+  }
+
+  int64 source = 1;
+  MessageType type = 2;
+  int64 target = 3;
+  MessageContent message = 4;
+}
+
+enum NotificationType {
+  AUTHENTICATE_FAILED = 0;
+}
+
+message UpdateState {
+  message StateInfo {
+    int64 uuid = 1;
+    UserState state = 2;
+  }
+  repeated StateInfo states = 1;
+}
+
+// 全局错误信息
+message Notify {
+  NotificationType type = 1;// 类型
+  string message = 2; // 消息内容
+}
+
