@@ -1,7 +1,8 @@
 package com.github.gotz9.electron;
 
 import com.github.gotz9.electron.configuration.ServerConfiguration;
-import com.github.gotz9.electron.protocol.ElectronServerProtocolInitializer;
+import com.github.gotz9.electron.core.service.AuthenticateService;
+import com.github.gotz9.electron.core.service.impl.DefaultAuthenticateService;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -12,13 +13,15 @@ public class Server {
     public static void main(String[] args) {
         ServerConfiguration configuration = loadConfiguration(args);
 
+        AuthenticateService authenticateService = new DefaultAuthenticateService();
+
         ServerBootstrap bootstrap = new ServerBootstrap()
                 // Server 连接配置
                 .group(new NioEventLoopGroup(configuration.getActor(), new NioEventLoopGroup(configuration.getWorker())))
                 .channel(NioServerSocketChannel.class)
                 .option(ChannelOption.SO_BACKLOG, 1024) // accept 等待队列长度
                 // 用户连接配置
-                .childHandler(new ElectronServerProtocolInitializer())
+                .childHandler(new ServerChannelInitializer(authenticateService))
                 .childOption(ChannelOption.SO_KEEPALIVE, true) // keep alive
                 .childOption(ChannelOption.TCP_NODELAY, true) // 数据包无延迟发送
                 ;

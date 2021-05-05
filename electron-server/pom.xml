@@ -19,8 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>com.github.gotz9</groupId>
-            <artifactId>electron-protocol</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <artifactId>electron-core</artifactId>
         </dependency>
     </dependencies>
 
