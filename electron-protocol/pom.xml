@@ -19,8 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>io.netty</groupId>
-            <artifactId>netty-handler</artifactId>
-            <version>${netty.version}</version>
+            <artifactId>netty-all</artifactId>
         </dependency>
         <dependency>
             <groupId>com.google.protobuf</groupId>
