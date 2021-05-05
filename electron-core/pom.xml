@@ -16,4 +16,11 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.github.gotz9</groupId>
+            <artifactId>electron-protocol</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>
