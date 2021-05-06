@@ -1,10 +1,8 @@
 package com.github.gotz9.electron.server;
 
 import com.github.gotz9.electron.ClientChannelInitializer;
-import com.github.gotz9.electron.Server;
 import com.github.gotz9.electron.ServerChannelInitializer;
 import com.github.gotz9.electron.core.service.impl.DefaultAuthenticateService;
-import com.github.gotz9.electron.protocol.ElectronServerProtocolInitializer;
 import com.github.gotz9.electron.protocol.message.ClientMessage;
 import com.github.gotz9.electron.protocol.message.Login;
 import com.github.gotz9.electron.protocol.message.NotificationType;
