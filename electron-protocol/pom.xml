@@ -40,7 +40,7 @@
                 <artifactId>protobuf-maven-plugin</artifactId>
                 <version>0.6.1</version>
                 <configuration>
-                    <protocExecutable>protoc-3.15.8-win64\bin\protoc.exe</protocExecutable>
+                    <protocExecutable>protoc</protocExecutable>
                 </configuration>
                 <executions>
                     <execution>
