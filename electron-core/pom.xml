@@ -19,7 +19,11 @@
     <dependencies>
         <dependency>
             <groupId>com.github.gotz9</groupId>
-            <artifactId>electron-protocol</artifactId>
+            <artifactId>electron-message</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
         </dependency>
     </dependencies>
 

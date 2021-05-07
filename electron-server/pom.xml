@@ -21,6 +21,10 @@
             <groupId>com.github.gotz9</groupId>
             <artifactId>electron-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.github.gotz9</groupId>
+            <artifactId>electron-protocol</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
