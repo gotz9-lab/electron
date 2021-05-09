@@ -1,4 +1,4 @@
-package com.github.gotz9.electron.core.service;
+package com.github.gotz9.electron.service;
 
 import com.github.gotz9.electron.protocol.message.Login;
 

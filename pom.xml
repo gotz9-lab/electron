@@ -15,6 +15,7 @@
         <module>electron-core</module>
         <module>electron-handler</module>
         <module>electron-server</module>
+        <module>electron-service</module>
     </modules>
 
     <properties>
@@ -23,6 +24,7 @@
         <maven.compiler.encoding>utf-8</maven.compiler.encoding>
         <electron.version>1.0-SNAPSHOT</electron.version>
         <netty.version>4.1.50.Final</netty.version>
+        <spring.version>5.2.14.RELEASE</spring.version>
     </properties>
 
     <dependencies>
@@ -64,6 +66,11 @@
             <dependency>
                 <groupId>com.github.gotz9</groupId>
                 <artifactId>electron-core</artifactId>
+                <version>${electron.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.gotz9</groupId>
+                <artifactId>electron-service</artifactId>
                 <version>${electron.version}</version>
             </dependency>
             <dependency>
