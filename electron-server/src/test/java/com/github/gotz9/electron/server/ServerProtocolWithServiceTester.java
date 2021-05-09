@@ -2,7 +2,7 @@ package com.github.gotz9.electron.server;
 
 import com.github.gotz9.electron.ClientChannelInitializer;
 import com.github.gotz9.electron.ServerChannelInitializer;
-import com.github.gotz9.electron.core.service.impl.DefaultAuthenticateService;
+import com.github.gotz9.electron.IHandlerManager;
 import com.github.gotz9.electron.protocol.message.ClientMessage;
 import com.github.gotz9.electron.protocol.message.Login;
 import com.github.gotz9.electron.protocol.message.NotificationType;
@@ -16,16 +16,21 @@ import io.netty.channel.embedded.EmbeddedChannel;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.IOException;
+
 public class ServerProtocolWithServiceTester {
 
     @Test
-    public void encodeTest() {
+    public void encodeTest() throws IOException, ClassNotFoundException {
         ClientMessage token = ClientMessage.newBuilder()
                 .setType(ClientMessage.ClientMessageType.Login)
                 .setLogin(Login.newBuilder().setUuid(11004).setToken("token").build())
                 .build();
 
-        EmbeddedChannel serverChannel = new EmbeddedChannel(new ServerChannelInitializer(new DefaultAuthenticateService()));
+        IHandlerManager manager = new IHandlerManager("../electron-handler/target/classes");
+        manager.loadHandler();
+
+        EmbeddedChannel serverChannel = new EmbeddedChannel(new ServerChannelInitializer(manager));
         EmbeddedChannel clientChannel = new EmbeddedChannel(new ClientChannelInitializer() {
             @Override
             protected ChannelHandler getDispatcher() {

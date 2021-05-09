@@ -11,9 +11,10 @@
 
     <modules>
         <module>electron-message</module>
-        <module>electron-core</module>
-        <module>electron-server</module>
         <module>electron-protocol</module>
+        <module>electron-core</module>
+        <module>electron-handler</module>
+        <module>electron-server</module>
     </modules>
 
     <properties>
