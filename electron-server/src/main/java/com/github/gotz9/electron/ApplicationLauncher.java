@@ -42,12 +42,26 @@ public class ApplicationLauncher {
         String actorStr = System.getProperty("el-actor", "1");
         String workerStr = System.getProperty("el-worker", "1");
         String handlerBinPath = System.getProperty("el-handler-bin", DEFAULT_HANDLER_BIN_PATH);
+        String configurationClasses = System.getProperty("el-context-configurations", "");
 
         short prop = Short.parseShort(portStr);
         int actor = Integer.parseInt(actorStr);
         int worker = Integer.parseInt(workerStr);
 
-        return new ServerConfiguration(prop, actor, worker, handlerBinPath);
+        String[] names = configurationClasses.split(",");
+
+        Class<?>[] classes = new Class<?>[names.length];
+        try {
+            for (int i = 0, namesLength = names.length; i < namesLength; i++) {
+                Class<?> clazz = Class.forName(names[i]);
+                classes[i] = clazz;
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("el-context-configurations", e);
+        }
+
+        return new ServerConfiguration(prop, actor, worker, handlerBinPath, classes);
     }
 
 }

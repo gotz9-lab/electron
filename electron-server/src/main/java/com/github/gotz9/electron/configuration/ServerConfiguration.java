@@ -12,11 +12,14 @@ public class ServerConfiguration {
 
     private final String handlerBinPath;
 
-    public ServerConfiguration(short port, int actor, int worker, String handlerBinPath) {
+    private final Class<?>[] configurations;
+
+    public ServerConfiguration(short port, int actor, int worker, String handlerBinPath, Class<?>[] configurations) {
         this.port = port;
         this.actor = actor;
         this.worker = worker;
         this.handlerBinPath = handlerBinPath;
+        this.configurations = configurations;
     }
 
     public short getPort() {
@@ -33,6 +36,10 @@ public class ServerConfiguration {
 
     public String getHandlerBinPath() {
         return handlerBinPath;
+    }
+
+    public Class<?>[] getRegisteredConfiguration() {
+        return configurations;
     }
 
 }
