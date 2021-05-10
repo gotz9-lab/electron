@@ -5,6 +5,8 @@ import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import static com.github.gotz9.electron.configuration.ServerConfiguration.DEFAULT_HANDLER_BIN_PATH;
 
@@ -12,6 +14,14 @@ public class ApplicationLauncher {
 
     public static void main(String[] args) {
         ServerConfiguration configuration = loadConfiguration();
+
+        try {
+            ServiceContextManager.CONTEXT = new AnnotationConfigApplicationContext(configuration.getRegisteredConfiguration());
+        } catch (Exception e) {
+            // Spring context 初始化失败
+            e.printStackTrace();
+            return;
+        }
 
         IHandlerManager iHandlerManager = new IHandlerManager(configuration.getHandlerBinPath());
         try {
