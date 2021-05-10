@@ -8,7 +8,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 import static com.github.gotz9.electron.configuration.ServerConfiguration.DEFAULT_HANDLER_BIN_PATH;
 
-public class Server {
+public class ApplicationLauncher {
 
     public static void main(String[] args) {
         ServerConfiguration configuration = loadConfiguration();
