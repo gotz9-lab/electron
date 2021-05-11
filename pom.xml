@@ -16,6 +16,8 @@
         <module>electron-handler</module>
         <module>electron-server</module>
         <module>electron-service</module>
+        <module>electron-client</module>
+        <module>electron-test</module>
     </modules>
 
     <properties>
@@ -84,9 +86,20 @@
                 <version>${electron.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.github.gotz9</groupId>
+                <artifactId>electron-client</artifactId>
+                <version>${electron.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-all</artifactId>
                 <version>${netty.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.13.2</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
