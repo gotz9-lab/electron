@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-public class ElectronCoreTester {
+public class ElectronCoreTest {
 
     @Test
     public void handlerManagerTest() {
