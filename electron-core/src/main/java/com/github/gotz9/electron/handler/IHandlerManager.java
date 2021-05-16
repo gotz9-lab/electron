@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static org.springframework.util.ClassUtils.CLASS_FILE_SUFFIX;
+import static com.github.gotz9.electron.utils.ElectronUtils.CLASS_FILE_SUFFIX;
 
 public class IHandlerManager {
 
@@ -22,7 +22,11 @@ public class IHandlerManager {
     private Map<Integer, IHandler> handlerMessageMap = new ConcurrentHashMap<>();
 
     public IHandlerManager(String handlerClassPath) {
-        this.handlerClassPath = Paths.get(handlerClassPath);
+        this(Paths.get(handlerClassPath));
+    }
+
+    public IHandlerManager(Path handlerClassPath) {
+        this.handlerClassPath = handlerClassPath;
         this.handlerClassLoader = new HandlerClassLoader(this.handlerClassPath);
     }
 
