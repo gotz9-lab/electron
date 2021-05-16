@@ -4,13 +4,9 @@ import com.github.gotz9.electron.ServiceContextManager;
 import com.github.gotz9.electron.protocol.message.*;
 import com.github.gotz9.electron.service.AuthenticateService;
 import io.netty.channel.Channel;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @IHandler.MessageHandler(ClientMessage.ClientMessageType.Login_VALUE)
 public class LoginHandler implements IHandler<Login> {
-
-    @Autowired
-    AuthenticateService authenticateService;
 
     @Override
     public void handle(Channel ctx, Login message) {
