@@ -3,9 +3,9 @@ package com.github.gotz9.electron.handler;
 import java.io.*;
 import java.nio.file.Path;
 
-public class HandlerClassLoader extends ClassLoader {
+import static com.github.gotz9.electron.utils.ElectronUtils.CLASS_FILE_SUFFIX;
 
-    static final String CLASS_FILE_SUFFIX = ".class";
+public class HandlerClassLoader extends ClassLoader {
 
     private Path classPath;
 
