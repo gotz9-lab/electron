@@ -1,5 +1,6 @@
 package com.github.gotz9.electron.handler;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -73,22 +74,21 @@ public class IHandlerManager {
     }
 
     /**
-     * 扫描 .class 文件, 返回出全限定类名
+     * 扫描 .class 文件, 返回全限定类名集合
      *
      * @throws IOException
      */
-    private static Set<String> scanClassFiles(Path rootPath) throws IOException {
-        Path path = rootPath.toAbsolutePath();
-
+    private static Set<String> scanClassFiles(Path root) throws IOException {
+        Path path = root.toAbsolutePath();
         int nameCount = path.getNameCount();
-        String separator = path.getFileSystem().getSeparator();
 
         Set<String> paths = new HashSet<>();
         Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
             @Override
-            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                if (file.toFile().canRead() && file.getName(file.getNameCount() - 1).toString().endsWith(CLASS_FILE_SUFFIX)) {
-                    String fileRelativePath = file.subpath(nameCount, file.getNameCount()).toString().replace(separator, ".");
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+                final File f = file.toFile();
+                if (f.canRead() && f.getName().endsWith(CLASS_FILE_SUFFIX)) {
+                    String fileRelativePath = file.subpath(nameCount, file.getNameCount()).toString().replace(File.separator, ".");
                     fileRelativePath = fileRelativePath.substring(0, fileRelativePath.length() - CLASS_FILE_SUFFIX.length());
                     paths.add(fileRelativePath);
                 }
@@ -99,4 +99,5 @@ public class IHandlerManager {
 
         return paths;
     }
+
 }
