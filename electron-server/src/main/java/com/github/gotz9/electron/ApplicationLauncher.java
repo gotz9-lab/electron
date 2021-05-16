@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import static com.github.gotz9.electron.configuration.ServerConfiguration.DEFAULT_HANDLER_BIN_PATH;
+import static com.github.gotz9.electron.configuration.ServerConfiguration.DEFAULT_HANDLER_SRC_PATH;
 
 public class ApplicationLauncher {
 
@@ -52,6 +53,7 @@ public class ApplicationLauncher {
         String actorStr = System.getProperty("el-actor", "1");
         String workerStr = System.getProperty("el-worker", "1");
         String handlerBinPath = System.getProperty("el-handler-bin", DEFAULT_HANDLER_BIN_PATH);
+        String handlerSrcPath = System.getProperty("el-handler-src", DEFAULT_HANDLER_SRC_PATH);
         String configurationClasses = System.getProperty("el-context-configurations", "");
 
         short prop = Short.parseShort(portStr);
@@ -71,7 +73,7 @@ public class ApplicationLauncher {
             throw new IllegalArgumentException("el-context-configurations", e);
         }
 
-        return new ServerConfiguration(prop, actor, worker, handlerBinPath, classes);
+        return new ServerConfiguration(prop, actor, worker, handlerSrcPath, handlerBinPath, classes);
     }
 
 }
