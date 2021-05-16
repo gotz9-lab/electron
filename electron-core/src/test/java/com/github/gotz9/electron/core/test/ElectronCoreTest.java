@@ -1,6 +1,6 @@
 package com.github.gotz9.electron.core.test;
 
-import com.github.gotz9.electron.IHandlerManager;
+import com.github.gotz9.electron.handler.IHandlerManager;
 import com.github.gotz9.electron.protocol.message.ClientMessage;
 import org.junit.Assert;
 import org.junit.Test;

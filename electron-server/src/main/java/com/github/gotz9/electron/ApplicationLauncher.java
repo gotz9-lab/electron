@@ -1,6 +1,7 @@
 package com.github.gotz9.electron;
 
 import com.github.gotz9.electron.configuration.ServerConfiguration;
+import com.github.gotz9.electron.handler.IHandlerManager;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;

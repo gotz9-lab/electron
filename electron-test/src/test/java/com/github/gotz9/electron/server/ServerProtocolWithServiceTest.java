@@ -1,6 +1,7 @@
 package com.github.gotz9.electron.server;
 
 import com.github.gotz9.electron.*;
+import com.github.gotz9.electron.handler.IHandlerManager;
 import com.github.gotz9.electron.protocol.message.ClientMessage;
 import com.github.gotz9.electron.protocol.message.Login;
 import com.github.gotz9.electron.protocol.message.NotificationType;

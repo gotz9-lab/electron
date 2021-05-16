@@ -1,5 +1,7 @@
 package com.github.gotz9.electron;
 
+import com.github.gotz9.electron.handler.IHandler;
+import com.github.gotz9.electron.handler.IHandlerManager;
 import com.github.gotz9.electron.protocol.message.ClientMessage;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;

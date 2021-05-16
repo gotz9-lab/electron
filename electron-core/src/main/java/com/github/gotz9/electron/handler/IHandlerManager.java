@@ -1,7 +1,4 @@
-package com.github.gotz9.electron;
-
-import com.github.gotz9.electron.HandlerClassLoader;
-import com.github.gotz9.electron.IHandler;
+package com.github.gotz9.electron.handler;
 
 import java.io.IOException;
 import java.nio.file.*;
