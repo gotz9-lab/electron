@@ -1,12 +1,14 @@
 package com.github.gotz9.electron;
 
+import com.github.gotz9.electron.compile.ElectronCompiler;
 import com.github.gotz9.electron.configuration.ServerConfiguration;
 import com.github.gotz9.electron.handler.IHandlerManager;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import org.springframework.context.ApplicationContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import static com.github.gotz9.electron.configuration.ServerConfiguration.DEFAULT_HANDLER_BIN_PATH;
@@ -14,14 +16,24 @@ import static com.github.gotz9.electron.configuration.ServerConfiguration.DEFAUL
 
 public class ApplicationLauncher {
 
+    public static final Logger LOG = LoggerFactory.getLogger(ApplicationLauncher.class);
+
     public static void main(String[] args) {
         ServerConfiguration configuration = loadConfiguration();
+
+        ElectronCompiler compiler = new ElectronCompiler(configuration.getHandlerSrcPath(), configuration.getHandlerBinPath());
+
+        try {
+            compiler.compileAll();
+        } catch (Exception e) {
+            LOG.error("handler compile failed", e);
+            return;
+        }
 
         try {
             ServiceContextManager.CONTEXT = new AnnotationConfigApplicationContext(configuration.getRegisteredConfiguration());
         } catch (Exception e) {
-            // Spring context 初始化失败
-            e.printStackTrace();
+            LOG.error("service context init failed", e);
             return;
         }
 
@@ -29,8 +41,7 @@ public class ApplicationLauncher {
         try {
             iHandlerManager.loadHandler();
         } catch (Exception e) {
-            // Handler 管理器初始化失败
-            e.printStackTrace();
+            LOG.error("handler manager failed", e);
             return;
         }
 
