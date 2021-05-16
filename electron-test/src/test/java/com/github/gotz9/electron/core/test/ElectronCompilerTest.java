@@ -1,24 +1,38 @@
 package com.github.gotz9.electron.core.test;
 
 import com.github.gotz9.electron.compile.ElectronCompiler;
+import com.github.gotz9.electron.handler.IHandlerManager;
+import com.github.gotz9.electron.protocol.message.ClientMessage;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.junit.runners.JUnit4;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Paths;
 
 public class ElectronCompilerTest {
 
     @Test
-    public void compileTest() throws Exception {
+    public void compileAndLoadTest() throws Exception {
         TemporaryFolder tempFolder = TemporaryFolder.builder().build();
         tempFolder.create();
 
         File output = tempFolder.getRoot();
-        ElectronCompiler compiler = new ElectronCompiler(Paths.get("./target/test-classes"), output.toPath());
+        ElectronCompiler compiler = new ElectronCompiler(Paths.get("./target/test-resources"), output.toPath());
 
-        compiler.compile("com.github.gotz9.electron.compile.CompileTestSource");
+        compiler.compileAll();
+
+        IHandlerManager manager = new IHandlerManager(output.toPath());
+
+        try {
+            manager.loadHandler();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        Assert.assertNotNull(manager.getHandler(ClientMessage.ClientMessageType.Login_VALUE));
 
         tempFolder.delete();
     }
