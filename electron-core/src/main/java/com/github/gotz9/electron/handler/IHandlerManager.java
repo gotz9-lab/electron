@@ -17,8 +17,6 @@ public class IHandlerManager {
 
     private HandlerClassLoader handlerClassLoader;
 
-    private Map<String, IHandler> handlerNameMap = new ConcurrentHashMap<>();
-
     private Map<Integer, IHandler> handlerMessageMap = new ConcurrentHashMap<>();
 
     public IHandlerManager(String handlerClassPath) {
@@ -50,6 +48,7 @@ public class IHandlerManager {
      *
      * @param className
      * @throws ClassNotFoundException
+     * @throws IllegalStateException  handler 的 {@link IHandler.MessageHandler#value()} 出现重复时抛出异常
      */
     private void createAndRegisterHandler(String className) throws ClassNotFoundException {
         Class<?> handlerClass = handlerClassLoader.loadClass(className);
@@ -73,8 +72,12 @@ public class IHandlerManager {
             throw new RuntimeException(e);
         }
 
-        handlerNameMap.put(className, handler);
-        handlerMessageMap.put(annotation.value(), handler);
+        final IHandler original = handlerMessageMap.put(annotation.value(), handler);
+
+        if (original != null)
+            throw new IllegalStateException("duplicate handler of message " + annotation.value() + "." +
+                    "original: " + original.getClass().getName() + "," +
+                    "new: " + handler.getClass().getName());
     }
 
     /**
