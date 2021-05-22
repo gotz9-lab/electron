@@ -33,7 +33,7 @@ public class ClientMessageDispatchHandler extends SimpleChannelInboundHandler<Cl
         }
 
         try {
-            handler.handle(ctx.channel(), msg.getLogin());
+            handler.handle(ctx.channel(), msg);
         } catch (Exception e) {
             logger.error("handler exception", e);
         }
