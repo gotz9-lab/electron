@@ -1,6 +1,7 @@
 package com.github.gotz9.electron.server;
 
 import com.github.gotz9.electron.*;
+import com.github.gotz9.electron.client.ClientChannelInitializer;
 import com.github.gotz9.electron.handler.IHandlerManager;
 import com.github.gotz9.electron.protocol.message.ClientMessage;
 import com.github.gotz9.electron.protocol.message.Login;
@@ -8,7 +9,6 @@ import com.github.gotz9.electron.protocol.message.NotificationType;
 import com.github.gotz9.electron.protocol.message.ServerMessage;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.embedded.EmbeddedChannel;
@@ -33,9 +33,9 @@ public class ServerProtocolWithServiceTest {
         manager.loadHandler();
 
         EmbeddedChannel serverChannel = new EmbeddedChannel(new ServerChannelInitializer(manager));
-        EmbeddedChannel clientChannel = new EmbeddedChannel(new ClientChannelInitializer() {
+        EmbeddedChannel clientChannel = new EmbeddedChannel(new ClientChannelInitializer(manager) {
             @Override
-            protected ChannelHandler getDispatcher() {
+            protected SimpleChannelInboundHandler<ServerMessage> getDispatcher() {
                 return new SimpleChannelInboundHandler<ServerMessage>() {
                     @Override
                     protected void channelRead0(ChannelHandlerContext ctx, ServerMessage msg) throws Exception {
