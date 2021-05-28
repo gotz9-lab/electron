@@ -16,6 +16,8 @@ public abstract class ElectronServerProtocolInitializer extends ChannelInitializ
 
     private static final UnhandledMessageLogger UNHANDLED_MESSAGE_LOGGER = new UnhandledMessageLogger();
 
+    protected static final String MESSAGE_DISPATCHER = "message-dispatcher";
+
     private final ProtobufDecoder protobufDecoder;
     private final ProtobufEncoder protobufEncoder = new ProtobufEncoder();
 
@@ -36,7 +38,7 @@ public abstract class ElectronServerProtocolInitializer extends ChannelInitializ
 
         ChannelHandler dispatcher = getDispatcher();
         if (dispatcher != null)
-            ch.pipeline().addLast("message-dispatcher", dispatcher);
+            ch.pipeline().addLast(MESSAGE_DISPATCHER, dispatcher);
     }
 
     protected ChannelHandler getDispatcher() {
