@@ -21,19 +21,18 @@ public class ApplicationLauncher {
     public static void main(String[] args) {
         ServerConfiguration configuration = loadConfiguration();
 
-        ElectronCompiler compiler = new ElectronCompiler(configuration.getHandlerSrcPath(), configuration.getHandlerBinPath());
-
-        try {
-            compiler.compileAll();
-        } catch (Exception e) {
-            LOG.error("handler compile failed", e);
-            return;
-        }
-
         try {
             ServiceContextManager.CONTEXT = new AnnotationConfigApplicationContext(configuration.getRegisteredConfiguration());
         } catch (Exception e) {
             LOG.error("service context init failed", e);
+            return;
+        }
+
+        try {
+            ElectronCompiler compiler = new ElectronCompiler(configuration.getHandlerSrcPath(), configuration.getHandlerBinPath());
+            compiler.compileAll();
+        } catch (Exception e) {
+            LOG.error("handler compile failed", e);
             return;
         }
 
