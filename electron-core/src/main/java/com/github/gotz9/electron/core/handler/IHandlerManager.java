@@ -1,5 +1,8 @@
 package com.github.gotz9.electron.core.handler;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
@@ -12,6 +15,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import static com.github.gotz9.electron.core.utils.ElectronUtils.CLASS_FILE_SUFFIX;
 
 public class IHandlerManager {
+
+    private static final Logger LOG = LoggerFactory.getLogger(IHandlerManager.class);
 
     private final Path handlerClassPath;
 
@@ -54,13 +59,13 @@ public class IHandlerManager {
         Class<?> handlerClass = handlerClassLoader.loadClass(className);
 
         if (!IHandler.class.isAssignableFrom(handlerClass)) {
-            // 继承自 IHandler
+            LOG.trace("{} is not assignable from {}", handlerClass, IHandler.class);
             return;
         }
 
         IHandler.MessageHandler annotation = handlerClass.getAnnotation(IHandler.MessageHandler.class);
         if (annotation == null) {
-            // 没有注解, 跳过加载
+            LOG.trace("{} do not have the {} annotation info", handlerClass, IHandler.MessageHandler.class);
             return;
         }
 
@@ -68,11 +73,12 @@ public class IHandlerManager {
         try {
             handler = (IHandler) handlerClass.newInstance();
         } catch (Exception e) {
-            // 创建实例异常
+            LOG.error(handlerClass.getName() + " create instance failed", e);
             throw new RuntimeException(e);
         }
 
         final IHandler original = handlerMessageMap.put(annotation.value(), handler);
+        LOG.info("register handler {} for message {}", handler, annotation.value());
 
         if (original != null)
             throw new IllegalStateException("duplicate handler of message " + annotation.value() + "." +

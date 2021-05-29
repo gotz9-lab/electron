@@ -1,5 +1,8 @@
 package com.github.gotz9.electron.core.compile;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.tools.*;
 import java.io.File;
 import java.net.URL;
@@ -12,6 +15,8 @@ import java.util.stream.Collectors;
 import static com.github.gotz9.electron.core.utils.ElectronUtils.JAVA_FILE_SUFFIX;
 
 public class ElectronCompiler {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ElectronCompiler.class);
 
     private final Path source;
 
@@ -40,6 +45,7 @@ public class ElectronCompiler {
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
                 final File f = file.toFile();
                 if (f.canRead() && f.getName().endsWith(JAVA_FILE_SUFFIX)) {
+                    LOG.debug("add Java source file: {}", file);
                     files.add(f);
                 }
                 return FileVisitResult.CONTINUE;
@@ -91,7 +97,7 @@ public class ElectronCompiler {
         options.add("-d");
         options.add(outputDir.getAbsolutePath());
 
-        System.out.println("output path:" + outputDir.getAbsolutePath());
+        LOG.info("output path:" + outputDir.getAbsolutePath());
 
         // 添加要编译的目标源文件
         Set<JavaFileObject> units = source.stream().map(EJavaFileObject::new).collect(Collectors.toSet());
