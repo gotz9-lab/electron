@@ -20,7 +20,7 @@ public class ServerProtocolTest {
                 .setLogin(Login.newBuilder().setUuid(11004).setToken("token").build())
                 .build();
 
-        EmbeddedChannel embeddedChannel = new EmbeddedChannel(new ElectronServerProtocolInitializer(ClientMessage.getDefaultInstance()) {
+        EmbeddedChannel embeddedChannel = new EmbeddedChannel(new ElectronProtocolInitializer(ClientMessage.getDefaultInstance()) {
             @Override
             protected ChannelHandler getDispatcher() {
                 return new SimpleChannelInboundHandler<ClientMessage>() {

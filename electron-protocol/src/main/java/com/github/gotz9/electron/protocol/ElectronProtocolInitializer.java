@@ -12,7 +12,7 @@ import io.netty.handler.codec.protobuf.ProtobufEncoder;
 /**
  * 读入 length based frame, 通过协议栈解析最终得到 ProtocolMessage 对象
  */
-public abstract class ElectronServerProtocolInitializer extends ChannelInitializer<Channel> {
+public abstract class ElectronProtocolInitializer extends ChannelInitializer<Channel> {
 
     private static final UnhandledMessageLogger UNHANDLED_MESSAGE_LOGGER = new UnhandledMessageLogger();
 
@@ -21,7 +21,7 @@ public abstract class ElectronServerProtocolInitializer extends ChannelInitializ
     private final ProtobufDecoder protobufDecoder;
     private final ProtobufEncoder protobufEncoder = new ProtobufEncoder();
 
-    public ElectronServerProtocolInitializer(MessageLite messageLite) {
+    public ElectronProtocolInitializer(MessageLite messageLite) {
         this.protobufDecoder = new ProtobufDecoder(messageLite);
     }
 
