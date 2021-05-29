@@ -1,4 +1,4 @@
-package com.github.gotz9.electron.utils;
+package com.github.gotz9.electron.core.utils;
 
 public class ElectronUtils {
 

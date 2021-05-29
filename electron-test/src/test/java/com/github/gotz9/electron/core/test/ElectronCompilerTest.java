@@ -1,12 +1,11 @@
 package com.github.gotz9.electron.core.test;
 
-import com.github.gotz9.electron.compile.ElectronCompiler;
-import com.github.gotz9.electron.handler.IHandlerManager;
-import com.github.gotz9.electron.protocol.message.ClientMessage;
+import com.github.gotz9.electron.core.compile.ElectronCompiler;
+import com.github.gotz9.electron.core.handler.IHandlerManager;
+import com.github.gotz9.electron.message.ClientMessage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import org.junit.runners.JUnit4;
 
 import java.io.File;
 import java.io.IOException;

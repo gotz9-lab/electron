@@ -1,4 +1,4 @@
-package com.github.gotz9.electron.configuration;
+package com.github.gotz9.electron.server.configuration;
 
 public class ServerConfiguration {
 

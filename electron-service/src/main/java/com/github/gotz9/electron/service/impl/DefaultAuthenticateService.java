@@ -1,7 +1,7 @@
 package com.github.gotz9.electron.service.impl;
 
 import com.github.gotz9.electron.service.AuthenticateService;
-import com.github.gotz9.electron.protocol.message.Login;
+import com.github.gotz9.electron.message.Login;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

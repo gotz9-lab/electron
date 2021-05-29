@@ -2,11 +2,11 @@ package com.github.gotz9.electron.server;
 
 import com.github.gotz9.electron.*;
 import com.github.gotz9.electron.client.ClientChannelInitializer;
-import com.github.gotz9.electron.handler.IHandlerManager;
-import com.github.gotz9.electron.protocol.message.ClientMessage;
-import com.github.gotz9.electron.protocol.message.Login;
-import com.github.gotz9.electron.protocol.message.NotificationType;
-import com.github.gotz9.electron.protocol.message.ServerMessage;
+import com.github.gotz9.electron.core.handler.IHandlerManager;
+import com.github.gotz9.electron.message.ClientMessage;
+import com.github.gotz9.electron.message.Login;
+import com.github.gotz9.electron.message.NotificationType;
+import com.github.gotz9.electron.message.ServerMessage;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;

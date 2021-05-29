@@ -1,8 +1,8 @@
-package com.github.gotz9.electron;
+package com.github.gotz9.electron.server;
 
-import com.github.gotz9.electron.handler.IHandlerManager;
-import com.github.gotz9.electron.handler.ManagedHandlersDispatcher;
-import com.github.gotz9.electron.protocol.message.ClientMessage;
+import com.github.gotz9.electron.core.handler.IHandlerManager;
+import com.github.gotz9.electron.core.handler.ManagedHandlersDispatcher;
+import com.github.gotz9.electron.message.ClientMessage;
 
 public class ClientMessageDispatchHandler extends ManagedHandlersDispatcher<ClientMessage> {
 

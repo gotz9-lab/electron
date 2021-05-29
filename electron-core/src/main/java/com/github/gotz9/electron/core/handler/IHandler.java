@@ -1,4 +1,4 @@
-package com.github.gotz9.electron.handler;
+package com.github.gotz9.electron.core.handler;
 
 import io.netty.channel.Channel;
 

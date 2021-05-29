@@ -1,8 +1,8 @@
 package com.github.gotz9.electron.client;
 
-import com.github.gotz9.electron.handler.IHandlerManager;
+import com.github.gotz9.electron.core.handler.IHandlerManager;
 import com.github.gotz9.electron.protocol.ElectronProtocolInitializer;
-import com.github.gotz9.electron.protocol.message.ServerMessage;
+import com.github.gotz9.electron.message.ServerMessage;
 import io.netty.channel.SimpleChannelInboundHandler;
 
 public class ClientChannelInitializer extends ElectronProtocolInitializer {

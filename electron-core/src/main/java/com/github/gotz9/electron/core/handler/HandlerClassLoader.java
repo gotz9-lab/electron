@@ -1,9 +1,9 @@
-package com.github.gotz9.electron.handler;
+package com.github.gotz9.electron.core.handler;
 
 import java.io.*;
 import java.nio.file.Path;
 
-import static com.github.gotz9.electron.utils.ElectronUtils.CLASS_FILE_SUFFIX;
+import static com.github.gotz9.electron.core.utils.ElectronUtils.CLASS_FILE_SUFFIX;
 
 public class HandlerClassLoader extends ClassLoader {
 

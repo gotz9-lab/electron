@@ -1,4 +1,4 @@
-package com.github.gotz9.electron.compile;
+package com.github.gotz9.electron.core.compile;
 
 import javax.tools.*;
 import java.io.File;
@@ -9,7 +9,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.github.gotz9.electron.utils.ElectronUtils.JAVA_FILE_SUFFIX;
+import static com.github.gotz9.electron.core.utils.ElectronUtils.JAVA_FILE_SUFFIX;
 
 public class ElectronCompiler {
 

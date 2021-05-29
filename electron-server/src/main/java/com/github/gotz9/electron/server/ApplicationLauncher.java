@@ -1,8 +1,9 @@
-package com.github.gotz9.electron;
+package com.github.gotz9.electron.server;
 
-import com.github.gotz9.electron.compile.ElectronCompiler;
-import com.github.gotz9.electron.configuration.ServerConfiguration;
-import com.github.gotz9.electron.handler.IHandlerManager;
+import com.github.gotz9.electron.ServiceContextManager;
+import com.github.gotz9.electron.core.compile.ElectronCompiler;
+import com.github.gotz9.electron.core.handler.IHandlerManager;
+import com.github.gotz9.electron.server.configuration.ServerConfiguration;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -11,8 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import static com.github.gotz9.electron.configuration.ServerConfiguration.DEFAULT_HANDLER_BIN_PATH;
-import static com.github.gotz9.electron.configuration.ServerConfiguration.DEFAULT_HANDLER_SRC_PATH;
+import static com.github.gotz9.electron.server.configuration.ServerConfiguration.DEFAULT_HANDLER_BIN_PATH;
+import static com.github.gotz9.electron.server.configuration.ServerConfiguration.DEFAULT_HANDLER_SRC_PATH;
+
 
 public class ApplicationLauncher {
 

@@ -1,7 +1,7 @@
 package com.github.gotz9.electron.protocol;
 
-import com.github.gotz9.electron.protocol.message.ClientMessage;
-import com.github.gotz9.electron.protocol.message.Login;
+import com.github.gotz9.electron.message.ClientMessage;
+import com.github.gotz9.electron.message.Login;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandler;

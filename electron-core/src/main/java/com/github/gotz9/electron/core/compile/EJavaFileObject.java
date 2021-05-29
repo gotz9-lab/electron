@@ -1,4 +1,4 @@
-package com.github.gotz9.electron.compile;
+package com.github.gotz9.electron.core.compile;
 
 import javax.tools.SimpleJavaFileObject;
 import java.io.File;

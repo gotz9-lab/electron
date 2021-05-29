@@ -1,9 +1,9 @@
-package com.github.gotz9.electron.handler.server;
+package com.github.gotz9.electron.core.handler.server;
 
 import java.util.Objects;
 
-import com.github.gotz9.electron.handler.IHandler;
-import com.github.gotz9.electron.protocol.message.ClientMessage;
+import com.github.gotz9.electron.core.handler.IHandler;
+import com.github.gotz9.electron.message.ClientMessage;
 
 import io.netty.channel.Channel;
 
