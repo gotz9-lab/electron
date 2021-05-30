@@ -25,6 +25,7 @@ public abstract class ManagedHandlersDispatcher<T> extends SimpleChannelInboundH
         if (handler == null) {
             // 无法处理的消息
             logger.warn("unhandlable message: not found handler for {}", handlerId);
+            ctx.fireChannelRead(msg);
             return;
         }
 
