@@ -18,6 +18,7 @@
         <module>electron-service</module>
         <module>electron-client</module>
         <module>electron-test</module>
+        <module>electron-server-package</module>
     </modules>
 
     <properties>
