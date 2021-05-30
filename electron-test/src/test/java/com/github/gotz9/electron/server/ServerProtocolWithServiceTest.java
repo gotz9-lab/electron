@@ -29,7 +29,7 @@ public class ServerProtocolWithServiceTest {
 
         ServiceContextManager.CONTEXT = new AnnotationConfigApplicationContext(ServiceSpringConfiguration.class);
 
-        IHandlerManager manager = new IHandlerManager("../electron-handler/target/classes");
+        IHandlerManager manager = new IHandlerManager("../electron-handler/electron-handler-server/target/classes");
         manager.loadHandler();
 
         EmbeddedChannel serverChannel = new EmbeddedChannel(new ServerChannelInitializer(manager));
