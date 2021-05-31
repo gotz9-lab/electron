@@ -11,6 +11,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.util.StringUtils;
 
 import static com.github.gotz9.electron.server.configuration.ServerConfiguration.DEFAULT_HANDLER_BIN_PATH;
 import static com.github.gotz9.electron.server.configuration.ServerConfiguration.DEFAULT_HANDLER_SRC_PATH;
@@ -67,25 +68,28 @@ public class ApplicationLauncher {
         String workerStr = System.getProperty("el-worker", "1");
         String handlerBinPath = System.getProperty("el-handler-bin", DEFAULT_HANDLER_BIN_PATH);
         String handlerSrcPath = System.getProperty("el-handler-src", DEFAULT_HANDLER_SRC_PATH);
-        String configurationClasses = System.getProperty("el-context-configurations", "");
+        String configurationClasses = System.getProperty("el-context-configurations", null);
 
         short prop = Short.parseShort(portStr);
         int actor = Integer.parseInt(actorStr);
         int worker = Integer.parseInt(workerStr);
 
-        String[] names = configurationClasses.split(",");
 
-        Class<?>[] classes = new Class<?>[names.length];
-        try {
-            for (int i = 0, namesLength = names.length; i < namesLength; i++) {
-                Class<?> clazz = Class.forName(names[i]);
-                classes[i] = clazz;
+        Class<?>[] classes;
+        if (StringUtils.isEmpty(configurationClasses)) {
+            classes = new Class<?>[0];
+        } else {
+            String[] names = configurationClasses.split(",");
+            classes = new Class<?>[names.length];
+            try {
+                for (int i = 0, namesLength = names.length; i < namesLength; i++) {
+                    Class<?> clazz = Class.forName(names[i]);
+                    classes[i] = clazz;
+                }
+            } catch (ClassNotFoundException e) {
+                throw new IllegalArgumentException("el-context-configurations", e);
             }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            throw new IllegalArgumentException("el-context-configurations", e);
         }
-
         return new ServerConfiguration(prop, actor, worker, handlerSrcPath, handlerBinPath, classes);
     }
 
