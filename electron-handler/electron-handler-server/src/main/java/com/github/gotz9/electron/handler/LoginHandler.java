@@ -1,8 +1,8 @@
 package com.github.gotz9.electron.handler;
 
-import com.github.gotz9.electron.ServiceContextManager;
 import com.github.gotz9.electron.core.handler.IHandler;
 import com.github.gotz9.electron.core.handler.server.ClientMessageHandler;
+import com.github.gotz9.electron.core.service.ServiceContextManager;
 import com.github.gotz9.electron.message.*;
 import com.github.gotz9.electron.service.AuthenticateService;
 import io.netty.channel.Channel;

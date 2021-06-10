@@ -3,6 +3,7 @@ package com.github.gotz9.electron.server;
 import com.github.gotz9.electron.*;
 import com.github.gotz9.electron.client.ClientChannelInitializer;
 import com.github.gotz9.electron.core.handler.IHandlerManager;
+import com.github.gotz9.electron.core.service.ServiceContextManager;
 import com.github.gotz9.electron.message.ClientMessage;
 import com.github.gotz9.electron.message.Login;
 import com.github.gotz9.electron.message.NotificationType;
