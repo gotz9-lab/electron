@@ -51,7 +51,7 @@ public class ApplicationLauncher {
         }
 
         // handler 处理器的线程池
-        ExecutorService handlerExecutor = Executors.newFixedThreadPool(4);
+        ExecutorService handlerExecutor = Executors.newFixedThreadPool(configuration.getHandlerProcessor());
 
         ServerBootstrap bootstrap = new ServerBootstrap()
                 // Server 连接配置
@@ -72,6 +72,7 @@ public class ApplicationLauncher {
         String portStr = System.getProperty("el-port", "8080");
         String actorStr = System.getProperty("el-actor", "1");
         String workerStr = System.getProperty("el-worker", "1");
+        String handlerProcessorStr = System.getProperty("el-handler-processor", "1");
         String handlerBinPath = System.getProperty("el-handler-bin", DEFAULT_HANDLER_BIN_PATH);
         String handlerSrcPath = System.getProperty("el-handler-src", DEFAULT_HANDLER_SRC_PATH);
         String configurationClasses = System.getProperty("el-context-configurations", null);
@@ -79,7 +80,7 @@ public class ApplicationLauncher {
         short prop = Short.parseShort(portStr);
         int actor = Integer.parseInt(actorStr);
         int worker = Integer.parseInt(workerStr);
-
+        int handlerProcessor = Integer.parseInt(handlerProcessorStr);
 
         Class<?>[] classes;
         if (StringUtils.isEmpty(configurationClasses)) {
@@ -96,7 +97,7 @@ public class ApplicationLauncher {
                 throw new IllegalArgumentException("el-context-configurations", e);
             }
         }
-        return new ServerConfiguration(prop, actor, worker, handlerSrcPath, handlerBinPath, classes);
+        return new ServerConfiguration(prop, actor, worker, handlerProcessor, handlerSrcPath, handlerBinPath, classes);
     }
 
 }

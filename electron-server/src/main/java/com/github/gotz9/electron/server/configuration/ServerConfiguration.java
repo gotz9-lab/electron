@@ -12,16 +12,19 @@ public class ServerConfiguration {
 
     private final int worker;
 
+    private final int handlerProcessor;
+
     private final String handlerBinPath;
 
     private final String handlerSrcPath;
 
     private final Class<?>[] configurations;
 
-    public ServerConfiguration(short port, int actor, int worker, String handlerSrcPath, String handlerBinPath, Class<?>[] configurations) {
+    public ServerConfiguration(short port, int actor, int worker, int handlerProcessor, String handlerSrcPath, String handlerBinPath, Class<?>[] configurations) {
         this.port = port;
         this.actor = actor;
         this.worker = worker;
+        this.handlerProcessor = handlerProcessor;
         this.handlerSrcPath = handlerSrcPath;
         this.handlerBinPath = handlerBinPath;
         this.configurations = configurations;
@@ -37,6 +40,10 @@ public class ServerConfiguration {
 
     public int getWorker() {
         return worker;
+    }
+
+    public int getHandlerProcessor() {
+        return handlerProcessor;
     }
 
     public String getHandlerSrcPath() {
