@@ -13,6 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.util.StringUtils;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import static com.github.gotz9.electron.server.configuration.ServerConfiguration.DEFAULT_HANDLER_BIN_PATH;
 import static com.github.gotz9.electron.server.configuration.ServerConfiguration.DEFAULT_HANDLER_SRC_PATH;
 
@@ -47,13 +50,16 @@ public class ApplicationLauncher {
             return;
         }
 
+        // handler 处理器的线程池
+        ExecutorService handlerExecutor = Executors.newFixedThreadPool(4);
+
         ServerBootstrap bootstrap = new ServerBootstrap()
                 // Server 连接配置
                 .group(new NioEventLoopGroup(configuration.getActor(), new NioEventLoopGroup(configuration.getWorker())))
                 .channel(NioServerSocketChannel.class)
                 .option(ChannelOption.SO_BACKLOG, 1024) // accept 等待队列长度
                 // 用户连接配置
-                .childHandler(new ServerChannelInitializer(iHandlerManager))
+                .childHandler(new ServerChannelInitializer(iHandlerManager, handlerExecutor))
                 .childOption(ChannelOption.SO_KEEPALIVE, true) // keep alive
                 .childOption(ChannelOption.TCP_NODELAY, true) // 数据包无延迟发送
                 ;

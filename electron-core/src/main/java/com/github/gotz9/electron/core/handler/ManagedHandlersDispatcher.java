@@ -6,6 +6,9 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 @ChannelHandler.Sharable
 public abstract class ManagedHandlersDispatcher<T> extends SimpleChannelInboundHandler<T> {
 
@@ -13,8 +16,21 @@ public abstract class ManagedHandlersDispatcher<T> extends SimpleChannelInboundH
 
     private final IHandlerManager handlerManager;
 
-    public ManagedHandlersDispatcher(IHandlerManager manager) {
+    private final ExecutorService executor;
+
+    /**
+     * @param manager  {@link IHandlerManager}, 用于获取消息对应的 manager.
+     * @param executor {@link ExecutorService} 线程池, 用于执行 handler 的业务处理.
+     */
+    public ManagedHandlersDispatcher(IHandlerManager manager, ExecutorService executor) {
         this.handlerManager = manager;
+        this.executor = executor != null
+                ? executor
+                : Executors.newFixedThreadPool(1);
+    }
+
+    public ManagedHandlersDispatcher(IHandlerManager manager) {
+        this(manager, null);
     }
 
     @Override
@@ -29,11 +45,13 @@ public abstract class ManagedHandlersDispatcher<T> extends SimpleChannelInboundH
             return;
         }
 
-        try {
-            handler.handle(ctx.channel(), msg);
-        } catch (Exception e) {
-            logger.error("handler exception", e);
-        }
+        executor.execute(() -> {
+            try {
+                handler.handle(ctx.channel(), msg);
+            } catch (Exception e) {
+                logger.error("handler exception", e);
+            }
+        });
     }
 
     protected abstract int getHandlerId(T msg);
