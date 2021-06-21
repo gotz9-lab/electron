@@ -72,7 +72,16 @@ public class ElectronCompiler {
         compile(Collections.singleton(sourceFile));
     }
 
+    /**
+     * @param source 需要编译的目标文件集合, 如果 {@link Collection#isEmpty()}, 将跳过编译行为.
+     * @throws Exception 编译异常
+     */
     public void compile(Collection<File> source) throws Exception {
+        if (source.isEmpty()) {
+            LOG.info("skip compiling with empty source file set.");
+            return;
+        }
+
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 
         File outputDir = output.toAbsolutePath().normalize().toFile();
