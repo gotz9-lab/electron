@@ -10,6 +10,7 @@ import java.net.URLClassLoader;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static com.github.gotz9.electron.core.utils.ElectronUtils.JAVA_FILE_SUFFIX;
@@ -32,11 +33,20 @@ public class ElectronCompiler {
     }
 
     /**
-     * 编译指定目录下的所有 .java 文件
+     * 默认编译文件筛选条件, 需要文件可读且文件名后缀为 {@link com.github.gotz9.electron.core.utils.ElectronUtils#JAVA_FILE_SUFFIX}.
+     */
+    private static final Predicate<File> DEFAULT_COMPILE_TARGET_PREDICATE = file -> file.canRead() && file.getName().endsWith(JAVA_FILE_SUFFIX);
+
+    public void compileAll() throws Exception {
+        compileAll(DEFAULT_COMPILE_TARGET_PREDICATE);
+    }
+
+    /**
+     * 编译指定目录下通过 targetPredicate 断言的所有文件
      *
      * @throws Exception
      */
-    public void compileAll() throws Exception {
+    public void compileAll(Predicate<File> targetPredicate) throws Exception {
         Path path = source.toAbsolutePath();
 
         Set<File> files = new HashSet<>();
@@ -44,7 +54,7 @@ public class ElectronCompiler {
             @Override
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
                 final File f = file.toFile();
-                if (f.canRead() && f.getName().endsWith(JAVA_FILE_SUFFIX)) {
+                if (targetPredicate.test(f)) {
                     LOG.debug("add Java source file: {}", file);
                     files.add(f);
                 }
