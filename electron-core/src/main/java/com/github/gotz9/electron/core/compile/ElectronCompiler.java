@@ -56,13 +56,13 @@ public class ElectronCompiler {
     }
 
     /**
-     * 编译 source 目录下 className 指定的目录下的文件.
+     * 编译 source 目录下 fullClassName 指定的目录下的文件.
      *
-     * @param className 全限定类名, 会根据包名寻找文件源文件位置
+     * @param fullClassName 全限定类名, 会根据包名寻找文件源文件位置
      * @throws Exception
      */
-    public void compile(String className) throws Exception {
-        File sourceFile = source.toAbsolutePath().resolve(className.replace(".", File.separator) + JAVA_FILE_SUFFIX).normalize().toFile();
+    public void compile(String fullClassName) throws Exception {
+        File sourceFile = source.toAbsolutePath().resolve(fullClassName.replace(".", File.separator) + JAVA_FILE_SUFFIX).normalize().toFile();
 
         if (!sourceFile.exists() || !sourceFile.canRead()) {
             // TODO throw Exception
