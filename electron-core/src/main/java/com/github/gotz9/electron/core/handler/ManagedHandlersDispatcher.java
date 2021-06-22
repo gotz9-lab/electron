@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @ChannelHandler.Sharable
 public abstract class ManagedHandlersDispatcher<T> extends SimpleChannelInboundHandler<T> {
@@ -24,9 +23,7 @@ public abstract class ManagedHandlersDispatcher<T> extends SimpleChannelInboundH
      */
     public ManagedHandlersDispatcher(IHandlerManager manager, ExecutorService executor) {
         this.handlerManager = manager;
-        this.executor = executor != null
-                ? executor
-                : Executors.newFixedThreadPool(1);
+        this.executor = executor;
     }
 
     public ManagedHandlersDispatcher(IHandlerManager manager) {
@@ -45,13 +42,16 @@ public abstract class ManagedHandlersDispatcher<T> extends SimpleChannelInboundH
             return;
         }
 
-        executor.execute(() -> {
-            try {
-                handler.handle(ctx.channel(), msg);
-            } catch (Exception e) {
-                logger.error("handler exception", e);
-            }
-        });
+        if (executor == null)
+            handler.handle(ctx.channel(), msg);
+        else
+            executor.execute(() -> {
+                try {
+                    handler.handle(ctx.channel(), msg);
+                } catch (Exception e) {
+                    logger.error("handler exception", e);
+                }
+            });
     }
 
     protected abstract int getHandlerId(T msg);
