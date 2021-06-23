@@ -1,4 +1,4 @@
-# Electron-chat
+# Electron
 
 基于 Netty 与 protobuf 序列化的 socket 服务器. 借助 javax 提供的 compiler 套件实现逻辑代码编译, 通过自定义 ClassLoader 加载类, 实现逻辑代码热更新.
 
