@@ -87,12 +87,16 @@ public class ElectronCompiler {
      * @throws Exception 编译异常
      */
     public void compile(Collection<File> source) throws Exception {
+        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+
+        if (compiler == null) {
+            throw new RuntimeException("no compiler is provided in system.");
+        }
+
         if (source.isEmpty()) {
             LOG.info("skip compiling with empty source file set.");
             return;
         }
-
-        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 
         File outputDir = output.toAbsolutePath().normalize().toFile();
         if (!outputDir.isDirectory()) {
